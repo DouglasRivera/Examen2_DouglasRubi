@@ -5,12 +5,14 @@
  */
 package examen2_douglasrivera;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +25,9 @@ public class CrearOrden extends javax.swing.JFrame {
      */
     
     OrdenThread ordenThread;
+    ArrayList<Clientes> clientes;
+    ArrayList<Ordenes> ordenes;
+    
     
     public CrearOrden() {
         initComponents();
@@ -58,9 +63,91 @@ public class CrearOrden extends javax.swing.JFrame {
                     }
                 });
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Identidad","Nombre", "Apellido", "RTN"
+                        }
+                ) {
+                    Class[] types = new Class[]{
+                        java.lang.String.class, java.lang.String.class,java.lang.String.class ,java.lang.String.class 
+                    };
+                    boolean[] canEdit = new boolean[]{
+                        false, false, false, false
+                    };
+                    
+                    
+
+                    public Class getColumnClass(int columnIndex) {
+                        return types[columnIndex];
+                    }
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+                });
+         jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                        new Object[][]{},
+                        new String[]{
+                            "Numero Factura","Pollos", "Biscuits", "Pures","Papas","Refrescos","Pies"
+                        }
+                ) {
+                    Class[] types = new Class[]{
+                        java.lang.String.class, java.lang.String.class,java.lang.String.class ,java.lang.String.class ,java.lang.String.class ,java.lang.String.class ,java.lang.String.class ,java.lang.String.class 
+                    };
+                    boolean[] canEdit = new boolean[]{
+                        false, false, false, false, false, false, false, false
+                    };
+                    
+                    
+
+                    public Class getColumnClass(int columnIndex) {
+                        return types[columnIndex];
+                    }
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return canEdit[columnIndex];
+                    }
+                });
+
+               
+             llenarTablas();
+                
+       
         ordenThread = new OrdenThread(jProgressBar1, jTable1, lblEstado);
         ordenThread.setVive(true);
         ordenThread.start();
+    }
+    
+    private void llenarTablas(){
+         DefaultTableModel modeloOrdenes = (DefaultTableModel) jTable2.getModel();
+                DefaultTableModel modeloClientes = (DefaultTableModel) jTable3.getModel();
+                ClienteBinario cb = new ClienteBinario();
+                OrdenesBinario ob = new OrdenesBinario();
+                clientes = cb.ReadFileScannerArrayList();
+                ordenes = ob.ReadFileScannerArrayList();
+                for (int i = 0; i < ordenes.size(); i++) {
+            Object newRow[] = {
+                            ordenes.get(i).getId(),
+                               ordenes.get(i).Pollos,
+                               ordenes.get(i).Biscuits,
+                               ordenes.get(i).Pure,
+                    ordenes.get(i).Papas,
+                    ordenes.get(i).Refresco,
+                    ordenes.get(i).Pies
+            };
+              modeloOrdenes.addRow(newRow);
+        }
+                jTable3.setModel(modeloClientes);
+                   for (int i = 0; i < clientes.size(); i++) {
+            Object newRow[] = {
+                            clientes.get(i).getId(),
+                               clientes.get(i).Nombre,
+                               clientes.get(i).Apellido,
+                               clientes.get(i).Rtn,                 
+            };
+              modeloClientes.addRow(newRow);
+        }
     }
 
     /**

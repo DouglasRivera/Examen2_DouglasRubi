@@ -1,0 +1,4 @@
+Popeyes
+Numero de factura: e601cf87-5553-4af9-952f-03a49831e933
+Nombre: null null
+RTN: nullCanitadad 	 	 PrecioPiezas de pollo 	 	1Bisquits 	 	1Pures 	 	1Papas 	 	1Refrescos 	 	1Pies 	 	1Total: 500

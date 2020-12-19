@@ -39,6 +39,7 @@ public class OrdenesBinario {
         }
         sc.close();
     }
+      
      
      public ArrayList<Ordenes> ReadFileScannerArrayList() {
         Scanner sc = null;//Hacemos lo mismo, leemos con el scanner
@@ -48,7 +49,7 @@ public class OrdenesBinario {
             while (sc.hasNext()) {
                 String temp = sc.nextLine();
                 String[] next = temp.split(","); 
-                ordenes.add(new Ordenes( ));
+                ordenes.add(new Ordenes(next[0], Integer.parseInt(next[1]),Integer.parseInt(next[2]), Integer.parseInt(next[3]),Integer.parseInt(next[4]), Integer.parseInt(next[5]),Integer.parseInt(next[6]),(next[7])));
                 
                 // .out.println(next);
                
@@ -72,6 +73,21 @@ public class OrdenesBinario {
             fw = new FileWriter(Archivo, true);
             bw = new BufferedWriter(fw);
             bw.write(orden.toString());
+            bw.newLine();
+            bw.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error en la escritura.");
+        }
+    }
+    
+    public void WriteFileFactura(Ordenes orden) {
+        FileWriter fw = null;
+        BufferedWriter bw = null; 
+        try {
+            fw = new FileWriter(Archivo, true);
+            bw = new BufferedWriter(fw);
+            bw.write(orden.generarFactura());
             bw.newLine();
             bw.flush();
         } catch (Exception e) {

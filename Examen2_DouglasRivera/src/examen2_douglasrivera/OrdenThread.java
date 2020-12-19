@@ -5,9 +5,11 @@
  */
 package examen2_douglasrivera;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -98,21 +100,22 @@ public class OrdenThread  extends Thread{
     
     @Override
     public void run() {
-        super.run(); //To change body of generated methods, choose Tools | Templates.
+        // barra.setMaximum(orden.getPollos());
          while (vive) {
-             if(enProgreso){
+             if(!enProgreso)
+                 continue;
+             ArrayList<Object[]> rows = new ArrayList<>();
                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
              barra.setMaximum(orden.getPollos());
-             for (int i = 1; i <= orden.getPollos(); i++) {
-                esperar(1000);
+              for (int i = 1; i <= orden.getPollos(); i++) {
+                 esperar(1000);
                 this.barra.setValue(barra.getValue()+1);
              }
              this.etiqueta.setText("Piezas de pollo fritas");
               Object newRow[] = {
-                            orden.getId(),orden.getPollos()+ " Piezas de pollo", orden.getPollos() * 1 };
-              modelo.addRow(newRow);
-              tabla.setModel(modelo);
-             
+                            orden.getId(),orden.getPollos()+ " Piezas de pollo", orden.getPollos() * 1 + "Minutos" };
+              rows.add(newRow);
+             esperar(500);
               barra.setValue(0);
              barra.setMaximum(orden.getBiscuits());
               for (int i = 1; i <= orden.getBiscuits(); i++) {
@@ -121,10 +124,9 @@ public class OrdenThread  extends Thread{
              }
              this.etiqueta.setText("Bisquits listos");
              Object newRow1[] = {
-                            orden.getId(),orden.getBiscuits()+ " Bisquits", orden.getBiscuits()* 1 };
-              modelo.addRow(newRow1);
-              tabla.setModel(modelo);
-             
+                            orden.getId(),orden.getBiscuits()+ " Bisquits", orden.getBiscuits()* 1+ "Minutos" };
+              rows.add(newRow1);
+              esperar(500);
               barra.setValue(0);
              barra.setMaximum(orden.getPure());
               for (int i = 1; i <= orden.getPure(); i++) {
@@ -133,10 +135,9 @@ public class OrdenThread  extends Thread{
              }
              this.etiqueta.setText("Pure listo");
              Object newRow2[] = {
-                            orden.getId(),orden.getPure()+ " Puré", orden.getPure()* 1 };
-              modelo.addRow(newRow2);
-              tabla.setModel(modelo);
-              
+                            orden.getId(),orden.getPure()+ " Puré", orden.getPure()* 1+ "Minutos" };
+               rows.add(newRow2);
+               esperar(500);
               barra.setValue(0);
              barra.setMaximum(orden.getPapas());
               for (int i = 1; i <= orden.getPapas(); i++) {
@@ -145,10 +146,9 @@ public class OrdenThread  extends Thread{
              }
              this.etiqueta.setText("Papas listas");
              Object newRow3[] = {
-                            orden.getId(),orden.getPapas()+ " Papas Fritas", orden.getPapas()* 1 };
-              modelo.addRow(newRow3);
-              tabla.setModel(modelo);
-              
+                            orden.getId(),orden.getPapas()+ " Papas Fritas", orden.getPapas()* 1 + "Minutos"};
+              rows.add(newRow3);
+               esperar(500);
               barra.setValue(0);
              barra.setMaximum(orden.getRefresco());
               for (int i = 1; i <= orden.getRefresco(); i++) {
@@ -157,10 +157,9 @@ public class OrdenThread  extends Thread{
              }
              this.etiqueta.setText("Refresco");
              Object newRow4[] = {
-                            orden.getId(),orden.getRefresco()+ " Refresco", orden.getRefresco()* 1 };
-              modelo.addRow(newRow4);
-              tabla.setModel(modelo);
-              
+                            orden.getId(),orden.getRefresco()+ " Refresco", orden.getRefresco()* 1 + "Minutos"};
+               rows.add(newRow4);
+               esperar(500);
               barra.setValue(0);
              barra.setMaximum(orden.getPies());
               for (int i = 1; i <= orden.getPies(); i++) {
@@ -169,18 +168,18 @@ public class OrdenThread  extends Thread{
              }
              this.etiqueta.setText("Pie");
              Object newRow5[] = {
-                            orden.getId(),orden.getPies()+ " Pie", orden.getPies()* 1 };
-              modelo.addRow(newRow5);
+                            orden.getId(),orden.getPies()+ " Pie", orden.getPies()* 1+ "Minutos" };
+              rows.add(newRow5);
+              for (int i = 0; i < rows.size(); i++) {
+                 modelo.addRow(rows.get(i));
+             }
               tabla.setModel(modelo);
-              
-              esperar(1000);
               this.etiqueta.setText("Orden lista");
               enProgreso = false;
-         } else {
-                 barra.setValue(0);
-                
+                   JOptionPane.showMessageDialog(barra.getParent(), "Se agrego correctamente");
+                   esperar(1000);
 
-             }
+         
          } 
         
     }

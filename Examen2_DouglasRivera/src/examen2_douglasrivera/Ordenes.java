@@ -10,7 +10,7 @@ package examen2_douglasrivera;
  * @author urs1
  */
 public class Ordenes {
-    int Id;
+    String Id;
     int Pollos;
     int Biscuits;
     int Pure;
@@ -23,7 +23,7 @@ public class Ordenes {
     public Ordenes() {
     }
 
-    public Ordenes(int Id, int Pollos, int Biscuits, int Pure, int Papas, int Refresco, int Pies, String IdCliente) {
+    public Ordenes(String Id, int Pollos, int Biscuits, int Pure, int Papas, int Refresco, int Pies, String IdCliente) {
         this.Id = Id;
         this.Pollos = Pollos;
         this.Biscuits = Biscuits;
@@ -34,11 +34,11 @@ public class Ordenes {
         this.IdCliente = IdCliente;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 
@@ -110,7 +110,20 @@ public class Ordenes {
         return Id+","+Pollos+","+Biscuits+","+Pure+","+Papas+","+Refresco+","+Pies+","+IdCliente;
     }
     
-    
+    public String generarFactura(){
+         return "Popeyes\n"+
+                 "Numero de factura: "+Id+"\n"+
+                 "Nombre: "+ cl.getNombre() + " " + cl.getApellido() +"\n"+
+                 "RTN: " + cl.getRtn()+ 
+                 "Canitadad \t \t Precio"+
+                 "Piezas de pollo \t \t"+Pollos+
+                 "Bisquits \t \t"+Biscuits+
+                 "Pures \t \t"+Pure+
+                 "Papas \t \t"+Papas+
+                 "Refrescos \t \t"+Refresco+
+                 "Pies \t \t"+Pies+
+                 "Total: 500";
+    }
     
     
 }

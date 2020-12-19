@@ -108,7 +108,7 @@ public class OrdenThread  extends Thread{
                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
              barra.setMaximum(orden.getPollos());
               for (int i = 1; i <= orden.getPollos(); i++) {
-                 esperar(1000);
+                 esperar(4000);
                 this.barra.setValue(barra.getValue()+1);
              }
              this.etiqueta.setText("Piezas de pollo fritas");
@@ -130,7 +130,7 @@ public class OrdenThread  extends Thread{
               barra.setValue(0);
              barra.setMaximum(orden.getPure());
               for (int i = 1; i <= orden.getPure(); i++) {
-                esperar(1000);
+                esperar(2000);
                 this.barra.setValue(barra.getValue()+1);
              }
              this.etiqueta.setText("Pure listo");
@@ -141,7 +141,7 @@ public class OrdenThread  extends Thread{
               barra.setValue(0);
              barra.setMaximum(orden.getPapas());
               for (int i = 1; i <= orden.getPapas(); i++) {
-                esperar(1000);
+                esperar(3000);
                 this.barra.setValue(barra.getValue()+1);
              }
              this.etiqueta.setText("Papas listas");
@@ -163,7 +163,7 @@ public class OrdenThread  extends Thread{
               barra.setValue(0);
              barra.setMaximum(orden.getPies());
               for (int i = 1; i <= orden.getPies(); i++) {
-                esperar(1000);
+                esperar(5000);
                 this.barra.setValue(barra.getValue()+1);
              }
              this.etiqueta.setText("Pie");
